@@ -1,0 +1,13 @@
+phpfarm
+=======
+
+Set of scripts to install a dozen of PHP versions in parallel on a system.
+Primarily developed for PEAR's continuous integration machine.
+
+
+Setup
+-----
+- Check out from svn
+- cd src/
+- ./compile.sh 5.3.0
+- PHP gets installed into inst/php-$version/
