@@ -78,7 +78,30 @@ if [ ! -d "$shbindir" ]; then
     exit 6
 fi
 #symlink all files
-ln -s "$instdir/bin/php-$version" "$shbindir/"
-ln -s "$instdir/bin/php-cgi-$version" "$shbindir/"
+
+#php may be called php-$version.gcno
+bphp="$instdir/bin/php-$version"
+bphpgcno="$instdir/bin/php-$version.gcno"
+if [ -f "$bphp" ]; then 
+    ln -s "$bphp" "$shbindir/"
+elif [ -f "$bphpgcno" ]; then
+    ln -s "$bphpgcno" "$shbindir/php-$version"
+else
+    echo "no php binary found"
+    exit 7    
+fi
+
+#php-cgi may be called php-$version.gcno
+bphpcgi="$instdir/bin/php-cgi-$version"
+bphpcgigcno="$instdir/bin/php-cgi-$version.gcno"
+if [ -f "$bphpcgi" ]; then 
+    ln -s "$bphpcgi" "$shbindir/"
+elif [ -f "$bphpcgigcno" ]; then
+    ln -s "$bphpcgigcno" "$shbindir/php-cgi-$version"
+else
+    echo "no php-cgi binary found"
+    exit 8
+fi
+
 ln -s "$instdir/bin/php-config-$version" "$shbindir/"
 ln -s "$instdir/bin/phpize-$version" "$shbindir/"
