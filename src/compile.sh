@@ -27,10 +27,17 @@ if [ ! -d "$srcdir" ]; then
     echo 'Source directory does not exist; trying to extract'
     srcfile="$bzipsdir/php-$version.tar.bz2"
     if [ ! -f "$srcfile" ]; then
-        #FIXME: fetch from museum
         echo 'Source file not found:'
         echo "$srcfile"
-        exit 2
+        #FIXME: use php4 if version is that
+        url="http://museum.php.net/php5/php-$version.tar.bz2"
+	wget -P "$bzipsdir" "$url"
+	if [ ! -f "$srcfile" ]; then
+            #FIXME: fetch from museum
+	    echo "Fetching source from museum failed:"
+	    echo $url
+            exit 2
+	fi
     fi
     #extract
     tar xjvf "$srcfile"
