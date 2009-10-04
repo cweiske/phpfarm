@@ -1,4 +1,5 @@
 #!/bin/bash
+#gcov='--enable-gcov'
 configoptions="\
 --enable-bcmath \
 --enable-calendar \
@@ -11,5 +12,5 @@ configoptions="\
 --enable-sqlite-utf8 \
 --enable-wddx \
 --enable-zip \
---enable-gcov \
---with-gettext"
+--with-gettext \
+$gcov"

@@ -1,5 +1,11 @@
 #!/bin/bash
 version=$1
+vmajor=`echo ${version%%.*}`
+vminor=`echo ${version%.*}`
+vminor=`echo ${vminor#*.}`
+vmaintenance=`echo ${version##*.}`
+vcomp=`printf "%02d%02d%02d\n" $vmajor $vminor $vmaintenance`
+
 #directory of this file. all php srces are extrated in it
 basedir="`dirname "$0"`"
 cd "$basedir"
@@ -33,7 +39,6 @@ if [ ! -d "$srcdir" ]; then
         url="http://museum.php.net/php5/php-$version.tar.bz2"
 	wget -P "$bzipsdir" "$url"
 	if [ ! -f "$srcfile" ]; then
-            #FIXME: fetch from museum
 	    echo "Fetching source from museum failed:"
 	    echo $url
             exit 2
