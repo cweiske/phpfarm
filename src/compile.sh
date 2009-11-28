@@ -95,9 +95,9 @@ fi
 bphp="$instdir/bin/php-$version"
 bphpgcno="$instdir/bin/php-$version.gcno"
 if [ -f "$bphp" ]; then 
-    ln -s "$bphp" "$shbindir/"
+    ln -fs "$bphp" "$shbindir/"
 elif [ -f "$bphpgcno" ]; then
-    ln -s "$bphpgcno" "$shbindir/php-$version"
+    ln -fs "$bphpgcno" "$shbindir/php-$version"
 else
     echo "no php binary found"
     exit 7    
@@ -107,13 +107,13 @@ fi
 bphpcgi="$instdir/bin/php-cgi-$version"
 bphpcgigcno="$instdir/bin/php-cgi-$version.gcno"
 if [ -f "$bphpcgi" ]; then 
-    ln -s "$bphpcgi" "$shbindir/"
+    ln -fs "$bphpcgi" "$shbindir/"
 elif [ -f "$bphpcgigcno" ]; then
-    ln -s "$bphpcgigcno" "$shbindir/php-cgi-$version"
+    ln -fs "$bphpcgigcno" "$shbindir/php-cgi-$version"
 else
     echo "no php-cgi binary found"
     exit 8
 fi
 
-ln -s "$instdir/bin/php-config-$version" "$shbindir/"
-ln -s "$instdir/bin/phpize-$version" "$shbindir/"
+ln -fs "$instdir/bin/php-config-$version" "$shbindir/"
+ln -fs "$instdir/bin/phpize-$version" "$shbindir/"
