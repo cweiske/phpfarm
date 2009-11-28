@@ -12,5 +12,6 @@ configoptions="\
 --enable-sqlite-utf8 \
 --enable-wddx \
 --enable-zip \
+--with-zlib \
 --with-gettext \
 $gcov"
