@@ -1,10 +1,36 @@
 #!/bin/bash
+#
+# phpfarm
+#
+# Installs multiple versions of PHP beside each other.
+# Both CLI and CGI versions are compiled.
+# Sources are fetched from museum.php.net if no
+# corresponding file bzips/php-$version.tar.bz2 exists.
+#
+# Usage:
+# ./compile.sh 5.3.1
+#
+# You should add ../inst/bin to your $PATH to have easy access
+# to all php binaries. The executables are called
+# php-$version and php-cgi-$version
+#
+# In case the options in options.sh do not suit you or you just need
+# different options for different php versions, you may create
+# custom-options-$version.sh scripts that define a $configoptions
+# variable. See options.sh for more details.
+#
+# Put pyrus.phar into bzips/ to automatically get version-specific
+# pyrus/pear2 commands.
+#
+# Author: Christian Weiske <cweiske@php.net>
+#
+
 version=$1
 vmajor=`echo ${version%%.*}`
 vminor=`echo ${version%.*}`
 vminor=`echo ${vminor#*.}`
-vmaintenance=`echo ${version##*.}`
-vcomp=`printf "%02d%02d%02d\n" $vmajor $vminor $vmaintenance`
+vpatch=`echo ${version##*.}`
+vcomp=`printf "%02d%02d%02d\n" $vmajor $vminor $vpatch`
 
 #directory of this file. all php srces are extrated in it
 basedir="`dirname "$0"`"
@@ -49,14 +75,13 @@ if [ ! -d "$srcdir" ]; then
 fi
 
 
-source 'options.sh' $version
+source 'options.sh' "$version" "$vmajor" "$vminor" "$vpatch"
 cd "$srcdir"
 #configuring
 #TODO: do not configure when config.nice exists
 ./configure \
  --prefix="$instdir" \
  --exec-prefix="$instdir" \
- --program-suffix="-$version" \
  --enable-debug \
  --disable-short-tags \
  --without-pear \
@@ -91,11 +116,11 @@ if [ ! -d "$shbindir" ]; then
 fi
 #symlink all files
 
-#php may be called php-$version.gcno
-bphp="$instdir/bin/php-$version"
-bphpgcno="$instdir/bin/php-$version.gcno"
+#php may be called php.gcno
+bphp="$instdir/bin/php"
+bphpgcno="$instdir/bin/php.gcno"
 if [ -f "$bphp" ]; then 
-    ln -fs "$bphp" "$shbindir/"
+    ln -fs "$bphp" "$shbindir/php-$version"
 elif [ -f "$bphpgcno" ]; then
     ln -fs "$bphpgcno" "$shbindir/php-$version"
 else
@@ -103,11 +128,11 @@ else
     exit 7    
 fi
 
-#php-cgi may be called php-$version.gcno
-bphpcgi="$instdir/bin/php-cgi-$version"
-bphpcgigcno="$instdir/bin/php-cgi-$version.gcno"
+#php-cgi may be called php.gcno
+bphpcgi="$instdir/bin/php-cgi"
+bphpcgigcno="$instdir/bin/php-cgi.gcno"
 if [ -f "$bphpcgi" ]; then 
-    ln -fs "$bphpcgi" "$shbindir/"
+    ln -fs "$bphpcgi" "$shbindir/php-cgi-$version"
 elif [ -f "$bphpcgigcno" ]; then
     ln -fs "$bphpcgigcno" "$shbindir/php-cgi-$version"
 else
@@ -115,5 +140,5 @@ else
     exit 8
 fi
 
-ln -fs "$instdir/bin/php-config-$version" "$shbindir/"
-ln -fs "$instdir/bin/phpize-$version" "$shbindir/"
+ln -fs "$instdir/bin/php-config" "$shbindir/php-config-$version"
+ln -fs "$instdir/bin/phpize" "$shbindir/phpize-$version"
