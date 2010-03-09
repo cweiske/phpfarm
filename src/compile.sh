@@ -143,4 +143,5 @@ fi
 ln -fs "$instdir/bin/php-config" "$shbindir/php-config-$version"
 ln -fs "$instdir/bin/phpize" "$shbindir/phpize-$version"
 
+cd "$basedir"
 ./pyrus.sh "$version" "$instdir"

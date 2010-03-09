@@ -38,7 +38,7 @@ mkdir -p "$instdir/pear"
 
 pyrusbin="$instdir/bin/pyrus"
 echo '#!/bin/sh'> "$pyrusbin"
-echo "\"$instdir/bin/php-$version\" \"$pyrustarget\" \"$instdir/pear\" \$@ " >> "$pyrusbin"
+echo "\"$instdir/bin/php\" \"$pyrustarget\" \"$instdir/pear\" \$@ " >> "$pyrusbin"
 chmod +x "$pyrusbin"
 "$pyrusbin" set php_prefix "$instdir"
 
