@@ -14,7 +14,7 @@ Setup
 -----
 - Check out phpfarm from svn:
   svn co http://svn.php.net/repository/pear/ci/phpfarm/trunk/ phpfarm
-- cd src/
+- cd phpfarmsrc/
 - ./compile.sh 5.3.0
 - PHP gets installed into inst/php-$version/
 - inst/bin/php-$version is also executable

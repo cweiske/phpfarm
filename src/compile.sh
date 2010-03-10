@@ -53,7 +53,6 @@ if [ "x$version" = 'x' ]; then
     exit 1
 fi
 
-
 #already extracted?
 if [ ! -d "$srcdir" ]; then
     echo 'Source directory does not exist; trying to extract'
@@ -61,14 +60,20 @@ if [ ! -d "$srcdir" ]; then
     if [ ! -f "$srcfile" ]; then
         echo 'Source file not found:'
         echo "$srcfile"
-        #FIXME: use php4 if version is that
-        url="http://museum.php.net/php5/php-$version.tar.bz2"
-	wget -P "$bzipsdir" "$url"
-	if [ ! -f "$srcfile" ]; then
-	    echo "Fetching source from museum failed:"
-	    echo $url
+        url="http://museum.php.net/php$vmajor/php-$version.tar.bz2"
+        wget -P "$bzipsdir" "$url"
+        if [ ! -f "$srcfile" ]; then
+            echo "Fetching sources from museum failed"
+            echo $url
+            #museum failed, now we try real download
+            url="http://www.php.net/get/php-$version.tar.bz2/from/this/mirror"
+            wget -P "$bzipsdir" "$url"
+        fi
+        if [ ! -f "$srcfile" ]; then
+            echo "Fetching sources failed:"
+            echo $url
             exit 2
-	fi
+        fi
     fi
     #extract
     tar xjvf "$srcfile"
@@ -95,7 +100,6 @@ fi
 #compile sources
 #make clean
 make
-
 if [ "$?" -gt 0 ]; then
     echo make failed.
     exit 4
