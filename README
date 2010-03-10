@@ -2,14 +2,38 @@ phpfarm
 =======
 
 Set of scripts to install a dozen of PHP versions in parallel on a system.
+It also creates a pyrus installation for each php version.
 Primarily developed for PEAR's continuous integration machine.
+
+The PHP source packages are fetched from museum.php.net which is not
+always up-to-date. If a file cannot be found, try to fetch it manually
+and put it into src/bzips/
 
 
 Setup
 -----
-- Check out from svn
+- Check out phpfarm from svn:
+  svn co http://svn.php.net/repository/pear/ci/phpfarm/trunk/ phpfarm
 - cd src/
 - ./compile.sh 5.3.0
 - PHP gets installed into inst/php-$version/
 - inst/bin/php-$version is also executable
   You should add inst/bin to your $PATH
+
+
+Customization
+-------------
+Default configuration options are in src/options.sh.
+You may create version-specific custom option files:
+- custom-options.sh
+- custom-options-5.sh
+- custom-options-5.3.sh
+- custom-options-5.3.1.sh
+The shell script needs to define a variable "$configoptions" with
+all ./configure options. Do not try to change prefix and exec-prefix.
+
+php.ini values may also be customized:
+- custom-php.ini
+- custom-php-5.ini
+- custom-php-5.3.ini
+- custom-php-5.3.1.ini

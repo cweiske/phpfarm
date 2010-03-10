@@ -101,11 +101,37 @@ if [ "$?" -gt 0 ]; then
     exit 4
 fi
 
-#TODO: make install
 make install
 if [ "$?" -gt 0 ]; then
     echo make install failed.
     exit 5
+fi
+
+#copy php.ini
+initarget="$instdir/lib/php.ini"
+if [ -f "php.ini-development" ]; then
+    #php 5.3
+    cp "php.ini-development" "$initarget"
+elif [ -f "php.ini-recommended" ]; then
+    #php 5.1, 5.2
+    cp "php.ini-recommended" "$initarget"
+else
+    echo "No php.ini file found."
+    echo "Please copy it manually to $instdir/lib/php.ini"
+fi
+#set default ini values
+cd "$basedir"
+if [ -f "$initarget" ]; then
+    #fixme: make the options unique or so
+    custom="custom-php.ini"
+    [ ! -f $custom ] && cp "default-custom-php.ini" "$custom"
+    [ -f $custom ] && cat "$custom" >> "$initarget"
+    custom="custom-php-$vmajor.ini"
+    [ -f $custom ] && cat "$custom" >> "$initarget"
+    custom="custom-php-$vmajor.$vminor.ini"
+    [ -f $custom ] && cat "$custom" >> "$initarget"
+    custom="custom-php-$vmajor.$vminor.$vpatch.ini"
+    [ -f $custom ] && cat "$custom" >> "$initarget"
 fi
 
 #create bin

@@ -45,4 +45,4 @@ chmod +x "$pyrusbin"
 #symlink
 ln -sf "$pyrusbin" "$instdir/../bin/pyrus-$version"
 
-#FIXME: setup php.ini
+echo "include_path=\".:$instdir/pear/\"" >> "$instdir/lib/php.ini"
