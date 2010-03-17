@@ -18,7 +18,8 @@ Setup
 - ./compile.sh 5.3.0
 - PHP gets installed into inst/php-$version/
 - inst/bin/php-$version is also executable
-  You should add inst/bin to your $PATH
+  You should add inst/bin to your $PATH, i.e.
+  PATH="$PATH:$HOME/phpfarm/inst/bin" in .bashrc
 
 
 Customization
