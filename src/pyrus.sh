@@ -40,7 +40,7 @@ pyrusbin="$instdir/bin/pyrus"
 echo '#!/bin/sh'> "$pyrusbin"
 echo "\"$instdir/bin/php\" \"$pyrustarget\" \"$instdir/pear\" \$@ " >> "$pyrusbin"
 chmod +x "$pyrusbin"
-"$pyrusbin" set php_prefix "$instdir"
+"$pyrusbin" set php_prefix "$instdir/bin/"
 
 #symlink
 ln -sf "$pyrusbin" "$instdir/../bin/pyrus-$version"
