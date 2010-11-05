@@ -41,7 +41,7 @@ srcdir="php-$version"
 #directory with source archives
 bzipsdir='bzips'
 #directory phps get installed into
-instbasedir="$basedir/../inst"
+instbasedir="`readlink -f "$basedir/../inst"`"
 #directory this specific version gets installed into
 instdir="$instbasedir/php-$version"
 #directory where all bins are symlinked
