@@ -26,7 +26,7 @@ pyrustarget="$instdir/pyrus.phar"
 if [ ! -f "$pyrusphar" ]; then
     #download pyrus from svn
     wget -O "$pyrusphar"\
-        "http://svn.php.net/viewvc/pear2/Pyrus/trunk/pyrus.phar?view=co"
+        "http://pear2.php.net/pyrus.phar"
 fi
 if [ ! -f "$pyrusphar" ]; then
     echo "Please put pyrus.phar into bzips/"
