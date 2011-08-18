@@ -69,6 +69,9 @@ if [ ! -d "$srcdir" ]; then
             url="http://www.php.net/get/php-$version.tar.bz2/from/this/mirror"
             wget -P "$bzipsdir" -O "$srcfile" "$url"
         fi
+        if [ ! -s "$srcfile" -a -f "$srcfile" ]; then
+            rm "$srcfile"
+        fi
         if [ ! -f "$srcfile" ]; then
             echo "Fetching sources failed:"
             echo $url
@@ -149,19 +152,19 @@ fi
 #php may be called php.gcno
 bphp="$instdir/bin/php"
 bphpgcno="$instdir/bin/php.gcno"
-if [ -f "$bphp" ]; then 
+if [ -f "$bphp" ]; then
     ln -fs "$bphp" "$shbindir/php-$version"
 elif [ -f "$bphpgcno" ]; then
     ln -fs "$bphpgcno" "$shbindir/php-$version"
 else
     echo "no php binary found"
-    exit 7    
+    exit 7
 fi
 
 #php-cgi may be called php.gcno
 bphpcgi="$instdir/bin/php-cgi"
 bphpcgigcno="$instdir/bin/php-cgi.gcno"
-if [ -f "$bphpcgi" ]; then 
+if [ -f "$bphpcgi" ]; then
     ln -fs "$bphpcgi" "$shbindir/php-cgi-$version"
 elif [ -f "$bphpcgigcno" ]; then
     ln -fs "$bphpcgigcno" "$shbindir/php-cgi-$version"
