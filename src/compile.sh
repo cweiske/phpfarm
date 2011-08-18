@@ -72,6 +72,18 @@ if [ ! -d "$srcdir" ]; then
         if [ ! -s "$srcfile" -a -f "$srcfile" ]; then
             rm "$srcfile"
         fi
+
+        if [ ! -f "$srcfile" ]; then
+            echo "Fetching sources from official download site failed"
+            echo $url
+            #use ilia's RC
+            url="https://downloads.php.net/ilia/php-$version.tar.bz2"
+            wget -P "$bzipsdir" -O "$srcfile" "$url"
+        fi
+        if [ ! -s "$srcfile" -a -f "$srcfile" ]; then
+            rm "$srcfile"
+        fi
+
         if [ ! -f "$srcfile" ]; then
             echo "Fetching sources failed:"
             echo $url
