@@ -43,10 +43,36 @@
     </tar>
   </target>
 
+
   <target name="build-docs" description="render documentation">
    <rST format="html" uptodate="true">
     <fileset refid="fs.doc"/>
    </rST>
+  </target>
+
+
+  <!--
+  /home/frs/project/s/se/semanticscuttle/SemanticScuttle/v0.94/
+  /home/frs/project/s/se/semanticscuttle/SemanticScuttle/v0.94/SemanticScuttle-v0.94.zip
+  /home/frs/project/s/se/semanticscuttle/SemanticScuttle/v0.94/SemanticScuttle-v0.94.1.zip
+  https://sourceforge.net/apps/trac/sourceforge/wiki/Release%20files%20for%20download
+  -->
+  <target name="deploy-sf" depends="check,zip"
+   description="Upload release to sourceforge"
+   >
+    <delete dir="dist/deploy-sf" /><!-- make empty -->
+    <mkdir dir="dist/deploy-sf" />
+    <mkdir dir="dist/deploy-sf/v${version-m}" />
+    <copy file="${distfile}" tofile="dist/deploy-sf/v${version-m}/${zipfile}"/>
+    <!-- test
+    <exec command="rsync -av dist/deploy-sf/ /tmp/test/" escape="false" />
+    -->
+    <exec
+     command="rsync -av -e ssh dist/deploy-sf/ ${sfuser},${sfproject}@frs.sourceforge.net:/home/frs/project/${sffilepath}/${sfproject}/"
+     escape="false" checkreturn="false"
+     />
+    <!-- rsync always returns code 23 on sourceforge releases, so we
+         can't check return values -->
   </target>
 
 
