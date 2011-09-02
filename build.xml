@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="phpfarm" default="zip" basedir=".">
+  <!--
+    phpfarm phing build file.
+    This file is the one-stop tool for all phpfarm administrative tasks
+  -->
+  <property file="build.properties" />
+
+  <property name="version-m"  value="0.1" />
+  <property name="version"    value="0.1.0" />
+  <property name="stability"  value="beta" />
+
+  <property name="zipfile"     value="${phing.project.name}-${version}.tar.bz2" />
+  <property name="distfile"    value="dist/${zipfile}" />
+  <property name="sfproject"   value="phpfarm" />
+  <property name="sffilepath"  value="p/ph/phpfarm/" />
+
+  <fileset id="fs.zip" dir=".">
+   <include name="inst/bin/.keep-phpfarm"/>
+   <include name="src/bzips/.keep-phpfarm"/>
+   <include name="src/compile.sh"/>
+   <include name="src/default-custom-php.ini"/>
+   <include name="src/options.sh"/>
+   <include name="src/pyrus.sh"/>
+   <include name="README"/>
+   <include name="README.html"/>
+  </fileset>
+
+  <fileset id="fs.doc" dir=".">
+   <include name="README"/>
+  </fileset>
+
+
+  <target name="zip" depends="check,build-docs"
+   description="Create release file"
+   >
+    <echo msg="Creating distribution file ${phing.project.name} ${version}"/>
+    <delete file="${distfile}" failonerror="false"/>
+    <tar destfile="${distfile}"
+         compression="bzip2"
+         prefix="${phing.project.name}-${version}/">
+     <fileset refid="fs.zip"/>
+    </tar>
+  </target>
+
+  <target name="build-docs" description="render documentation">
+   <rST format="html" uptodate="true">
+    <fileset refid="fs.doc"/>
+   </rST>
+  </target>
+
+
+  <target name="check"
+   description="Check variables"
+   >
+    <fail unless="version" message="Version not defined!" />
+    <fail unless="sfuser" message="Sourceforge username not defined!" />
+    <fail unless="sfproject" message="Sourceforge project name not defined!" />
+    <fail unless="sffilepath" message="Sourceforge project file path not defined!" />
+
+    <mkdir dir="dist" />
+  </target>
+
+</project>
