@@ -7,7 +7,7 @@
   <property file="build.properties" />
 
   <property name="version-m"  value="0.1" />
-  <property name="version"    value="0.1.0" />
+  <property name="version"    value="0.1.1-X" />
   <property name="stability"  value="beta" />
 
   <property name="zipfile"     value="${phing.project.name}-${version}.tar.bz2" />
