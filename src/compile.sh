@@ -158,13 +158,15 @@ if [ -f "$initarget" ]; then
     #fixme: make the options unique or so
     custom="custom-php.ini"
     [ ! -f $custom ] && cp "default-custom-php.ini" "$custom"
-    [ -f $custom ] && cat "$custom" >> "$initarget"
+
+    versionreplace="s/\$version/$version/"
+    [ -f $custom ] && cat "$custom" | sed $versionreplace >> "$initarget"
     custom="custom-php-$vmajor.ini"
-    [ -f $custom ] && cat "$custom" >> "$initarget"
+    [ -f $custom ] && cat "$custom" | sed $versionreplace >> "$initarget"
     custom="custom-php-$vmajor.$vminor.ini"
-    [ -f $custom ] && cat "$custom" >> "$initarget"
+    [ -f $custom ] && cat "$custom" | sed $versionreplace >> "$initarget"
     custom="custom-php-$vmajor.$vminor.$vpatch.ini"
-    [ -f $custom ] && cat "$custom" >> "$initarget"
+    [ -f $custom ] && cat "$custom" | sed $versionreplace >> "$initarget"
 fi
 
 #create bin
