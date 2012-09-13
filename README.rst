@@ -19,7 +19,7 @@ Setup
 - ``cd phpfarm/src/``
 - ``./compile.sh 5.3.0``
 - PHP gets installed into ``phpfarm/inst/php-$version/``
-- ``phpfarm/inst/bin/php-$version`` is also executable
+- ``phpfarm/inst/bin/php-$version`` is also executable.
   You should add ``inst/bin`` to your ``$PATH``, i.e.
   ``PATH="$PATH:$HOME/phpfarm/inst/bin"`` in ``.bashrc``,
   as well as ``inst/current-bin``.
@@ -47,7 +47,7 @@ Do not try to change ``prefix`` and ``exec-prefix``.
 - ``custom-php-5.3.1.ini``
 
 
-Switching default php versions
+Switching default PHP versions
 ------------------------------
 Using the command ``switch-phpfarm``, you can make one of the installed
 PHP versions the default one that gets run when just typing ``php``::
@@ -63,3 +63,15 @@ PHP versions the default one that gets run when just typing ``php``::
     PHP 5.4.6 (cli) (built: Sep 13 2012 11:24:56) (DEBUG)
 
 You need to have ``inst/current-bin`` in your ``$PATH`` to make this work.
+
+
+
+About phpfarm
+-------------
+Written by Christian Weiske, cweiske@cweiske.de
+
+Homepage: https://sourceforge.net/p/phpfarm
+
+Licensed under the `AGPL v3`__ or later.
+
+__ http://www.gnu.org/licenses/agpl
