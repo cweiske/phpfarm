@@ -139,7 +139,7 @@ fi
 
 #copy php.ini
 #you can define your own ini target directory by setting $initarget
-if [ "x$initarget" -eq x ]; then
+if [ "x$initarget" = x ]; then
     initarget="$instdir/lib/php.ini"
 fi
 if [ -f "php.ini-development" ]; then
