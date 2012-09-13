@@ -1,2 +1,4 @@
 bin/*
+!bin/switch-phpfarm
 php-*/
+current-bin

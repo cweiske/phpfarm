@@ -1,0 +1,28 @@
+#!/bin/sh
+basedir="`dirname "$0"`/../"
+cd "$basedir"
+basedir=`pwd`
+
+if [ "$1" = "" ]; then
+    echo Switch the currently active PHP version of phpfarm
+    echo Available versions:
+    ls -1d php-*|sed -e 's/php-//' -e 's/^/ /'
+    exit 1
+fi
+
+version="$1"
+phpdir="$basedir/php-$version"
+
+if [ ! -d "$phpdir" ]; then
+    echo "PHP version $version is not installed"
+    exit 2
+fi
+
+binlink="$basedir/current-bin"
+if [ -e "$binlink" ]; then
+    rm "$binlink"
+fi
+
+ln -s "$phpdir/bin" "$binlink"
+echo Setting active PHP version to $version
+php --version
