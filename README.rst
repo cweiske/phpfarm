@@ -67,6 +67,7 @@ You need to have ``inst/current-bin`` in your ``$PATH`` to make this work.
 Compiling extensions
 --------------------
 PECL extensions can be compiled for any installed PHP version using the ``compile-extension.sh`` script::
+
     $ ./src/compile-extension apc 5.4.3
 
 About phpfarm
