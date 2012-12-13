@@ -204,5 +204,7 @@ fi
 ln -fs "$instdir/bin/php-config" "$shbindir/php-config-$version"
 ln -fs "$instdir/bin/phpize" "$shbindir/phpize-$version"
 
-cd "$basedir"
-./pyrus.sh "$version" "$instdir"
+if [ $vmajor -gt 5 ] || [ $vmajor -eq 5 -a $vminor -gt 2 ]; then
+    cd "$basedir"
+    ./pyrus.sh "$version" "$instdir"
+fi
