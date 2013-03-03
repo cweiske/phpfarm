@@ -1,3 +1,6 @@
 README.html
 build.properties
 dist/
+
+extensions/*
+!extensions/compile-all.sh
