@@ -208,3 +208,8 @@ if [ $vmajor -gt 5 ] || [ $vmajor -eq 5 -a $vminor -gt 2 ]; then
     cd "$basedir"
     ./pyrus.sh "$version" "$instdir"
 fi
+
+#post install operations
+if [ -f 'post-install.sh' ]; then
+    ./post-install.sh $version
+fi
