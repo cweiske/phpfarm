@@ -142,6 +142,12 @@ fi
 if [ "x$initarget" = x ]; then
     initarget="$instdir/lib/php.ini"
 fi
+
+initarget_dir=$(dirname "$initarget")
+if [ ! -d "$initarget_dir" ] && ! mkdir -p -m 755 "$initarget_dir"; then
+  echo "Warning: failed to created directory $initarget_dir." 1>&2
+fi
+
 if [ -f "php.ini-development" ]; then
     #php 5.3
     cp "php.ini-development" "$initarget"
@@ -206,5 +212,5 @@ ln -fs "$instdir/bin/phpize" "$shbindir/phpize-$version"
 
 if [ $vmajor -gt 5 ] || [ $vmajor -eq 5 -a $vminor -gt 2 ]; then
     cd "$basedir"
-    ./pyrus.sh "$version" "$instdir"
+    ./pyrus.sh "$version" "$instdir" "$initarget"
 fi

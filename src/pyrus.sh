@@ -10,6 +10,7 @@ fi
 
 version="$1"
 instdir="$2"
+initarget="${3:-$instdir/lib/php.ini}"
 
 if [ ! -d "$instdir" ]; then
     echo "PHP installation directory does not exist: $instdir"
@@ -45,4 +46,4 @@ chmod +x "$pyrusbin"
 #symlink
 ln -sf "$pyrusbin" "$instdir/../bin/pyrus-$version"
 
-echo "include_path=\".:$instdir/pear/php/\"" >> "$instdir/lib/php.ini"
+echo "include_path=\".:$instdir/pear/php/\"" >> "$initarget"
