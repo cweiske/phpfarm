@@ -103,6 +103,10 @@ if [ ! -d "$srcdir" ]; then
     fi
     #extract
     tar xjvf "$srcfile"
+else
+    cd "$srcdir"
+    make clean
+    cd ".."
 fi
 
 
